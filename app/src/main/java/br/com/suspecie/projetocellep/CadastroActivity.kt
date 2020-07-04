@@ -1,6 +1,7 @@
 package br.com.suspecie.projetocellep
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -59,6 +60,9 @@ class CadastroActivity : AppCompatActivity() {
                 //primeiro parametro: nome do arquivo
                 //segundo parametro: modo de acesso
                 //depois vamos editar ele para salvar os dados
+                //para verificar onde estao os dados ir no
+                //Device File Explorer no android studio > data > data >
+                // br.com.suspecie.projetocellep > shared_prefs
                 getSharedPreferences("cadastro-$email", Context.MODE_PRIVATE)
                     .edit()
                     .apply {
@@ -85,6 +89,16 @@ class CadastroActivity : AppCompatActivity() {
                 edtCadastroEmail.text.clear()
                 edtCadastroPassword.text.clear()
                 spnSexo.setSelection(0)
+
+                //abrir a tela main
+                startActivity(Intent(this@CadastroActivity, MainActivity::class.java)
+                    .apply {
+                        //passagem de parametros de uma tela para outra
+                        putExtra("email", email)
+                    }
+                )
+                // fechar todas as telas do empilhamento
+                finishAffinity()
             }
         }
 
